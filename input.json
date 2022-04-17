@@ -1,0 +1,28 @@
+[
+    {
+        "Title": "Solo do local X",
+        "Description": "Coleta feita no dia xx/xx/xxxx",
+        "PressureHeads": [
+            0, 5, 30, 100, 300, 500, 1000, 5000, 10000, 15000
+        ],
+        "MeasuredWaterContents": [
+            0.543, 0.474, 0.402, 0.390, 0.327, 0.309, 0.290, 0.287, 0.286, 0.280
+        ],
+        "Models": [
+            "VG", "BC"
+        ]
+    },
+    {
+        "Title": "Solo do local Y",
+        "Description": "Coleta feita no dia yy/yy/yyyy",
+        "PressureHeads": [
+            0, 5, 30, 100, 300, 500, 1000, 5000, 10000, 15000
+        ],
+        "MeasuredWaterContents": [
+            0.543, 0.474, 0.402, 0.390, 0.327, 0.309, 0.290, 0.287, 0.286, 0.280
+        ],
+        "Models": [
+            "VG"
+        ]
+    }
+]
