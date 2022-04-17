@@ -1,4 +1,5 @@
 ﻿using System;
+using soilparams.Enums;
 using soilparams.Models;
 
 namespace soilparams

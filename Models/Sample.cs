@@ -10,6 +10,7 @@ namespace soilparams.Models
         public string Description { get; set; }
         public List<int> PressureHeads { get; set; }
         public List<double> MeasuredWaterContents { get; set; }
+        public List<double> PredictedWaterContents { get; set; }
         public List<string> Models { get; set; }
         public List<double> InitialGuess { get; set; }
         public BaseSoilModel chosenModel { get; set; }
