@@ -11,6 +11,7 @@ namespace soilparams.Models
         public List<int> PressureHeads { get; set; }
         public List<double> MeasuredWaterContents { get; set; }
         public List<string> Models { get; set; }
+        public List<double> InitialGuess { get; set; }
         public BaseSoilModel chosenModel { get; set; }
 
         public string GetModelName()
@@ -24,11 +25,11 @@ namespace soilparams.Models
         {
             if (model.Equals("VG"))
             {
-                this.chosenModel = new VanGenuchten();
+                this.chosenModel = new VanGenuchten(this, InitialGuess);
             }
             else if (model.Equals("BC"))
             {
-                this.chosenModel = new BrooksAndCorey();
+                this.chosenModel = new BrooksAndCorey(this, InitialGuess);
             }
         }
     }

@@ -44,7 +44,7 @@ In this file you configure the input parameters for the application. It's quite 
 - MeasuredWaterContents: A list of the water contents found after applied pressure head
 - Models: The model names on which you want to estimate the parameters. Options are:
     - VG: van Genuchten (1980) model
-    - BC: Brooks and Corey model
+    - BC: Brooks and Corey (1964) model
 
 2. Run the command `soilparams input.json output.txt`.
 

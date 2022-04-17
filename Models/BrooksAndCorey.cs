@@ -4,7 +4,7 @@ namespace soilparams.Models
 {
     public class BrooksAndCorey : BaseSoilModel
     {
-        public BrooksAndCorey() : base("Brooks and Corey") {}
+        public BrooksAndCorey(Sample sample, List<double> initialGuess) : base("Brooks and Corey", sample, initialGuess) {}
 
         public override Dictionary<string, double> GetSoilParameters()
         {
