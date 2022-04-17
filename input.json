@@ -1,7 +1,7 @@
 [
     {
-        "Title": "Solo do local X",
-        "Description": "Coleta feita no dia xx/xx/xxxx",
+        "Title": "Soil from location X",
+        "Description": "Samples collected in 02/03/2022",
         "PressureHeads": [
             0, 5, 30, 100, 300, 500, 1000, 5000, 10000, 15000
         ],
@@ -13,8 +13,8 @@
         ]
     },
     {
-        "Title": "Solo do local Y",
-        "Description": "Coleta feita no dia yy/yy/yyyy",
+        "Title": "Soil from location Y",
+        "Description": "Samples collected in 09/03/2022",
         "PressureHeads": [
             0, 5, 30, 100, 300, 500, 1000, 5000, 10000, 15000
         ],

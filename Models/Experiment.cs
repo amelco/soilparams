@@ -25,7 +25,7 @@ namespace soilparams.Models
                 foreach (var model in sample.Models)
                 {
                     sample.SetModel(model);
-                    Console.WriteLine($"Calculando parâmetros para o modelo {sample.GetModelName()}");
+                    Console.WriteLine($"Calculating parameters from model '{sample.GetModelName()}'");
                     var soilParams = sample.chosenModel.GetSoilParameters();
                     foreach (var param in soilParams)
                     {
