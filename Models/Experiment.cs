@@ -31,7 +31,7 @@ namespace soilparams.Models
                     {
                         Console.WriteLine(param.Key + ": " + param.Value);
                     }
-                Console.WriteLine("");
+                    Console.WriteLine("");
                 }
                 Console.WriteLine("");
             }
