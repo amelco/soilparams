@@ -52,6 +52,7 @@ In this file you configure the input parameters for the application. It's quite 
     - VG: van Genuchten (1980) model
     - BC: Brooks and Corey (1964) model
 - InitialGuess: A list of initial guess values for the model parameters to be estimated
+    - For VG model, parameter order is: theta_r, theta_s, n, alpha
 
 2. Run the command `soilparams input.json output.txt`.
 
