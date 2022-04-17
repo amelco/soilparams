@@ -44,16 +44,23 @@ Tool to calculate soil hydraulic parameters through several models
 ```
 
 In this file you configure the input parameters for the application. It's quite intuitive, I think. You give informations such as:
+
 - Title: A meaningfull title for a group of sample (usually collected from a specific site)
 - Description: It's self explanatory =)
 - PressureHeads: A list of the pressure heads (tension) that was applied in the samples
 - MeasuredWaterContents: A list of the water contents found after applied pressure head
 - Models: The model names on which you want to estimate the parameters. Options are:
-    - VG: van Genuchten (1980) model
-    - BC: Brooks and Corey (1964) model
+  - VG: van Genuchten (1980) model
+  - BC: Brooks and Corey (1964) model
 - InitialGuess: A list of initial guess values for the model parameters to be estimated
-    - For VG model, parameter order is: theta_r, theta_s, n, alpha
+  - For VG model, parameter order is: theta_r, theta_s, n, alpha
 
 2. Run the command `soilparams input.json output.txt`.
 
 It will generate a file called `output.txt` with the results.
+
+### Todo
+
+- Generate csv output
+- Generate WRC plot
+- Generate statistical analysis of the result
