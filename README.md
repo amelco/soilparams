@@ -19,6 +19,9 @@ Tool to calculate soil hydraulic parameters through several models
         ],
         "Models": [
             "VG", "BC"
+        ],
+        "InitialGuess": [
+            0.1, 0.5, 1.2, 0.5
         ]
     },
     {
@@ -32,6 +35,9 @@ Tool to calculate soil hydraulic parameters through several models
         ],
         "Models": [
             "VG"
+        ],
+        "InitialGuess": [
+            0.1, 0.5, 1.2, 0.5
         ]
     }
 ]
@@ -45,6 +51,7 @@ In this file you configure the input parameters for the application. It's quite 
 - Models: The model names on which you want to estimate the parameters. Options are:
     - VG: van Genuchten (1980) model
     - BC: Brooks and Corey (1964) model
+- InitialGuess: A list of initial guess values for the model parameters to be estimated
 
 2. Run the command `soilparams input.json output.txt`.
 
