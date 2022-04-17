@@ -57,6 +57,8 @@ In this file you configure the input parameters for the application. It's quite 
 
 2. Run the command `soilparams input.json output.txt`.
 
+Alternatively, you can run just the command `soilparams` and it will try to open the default value for the input file (`input.json`) and print the result in the default output file (`output.txt`).
+
 It will generate a file called `output.txt` with the results.
 
 ### Todo

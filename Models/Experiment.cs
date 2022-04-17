@@ -14,7 +14,16 @@ namespace soilparams.Models
 
         private List<Sample> getSampleList(string inputFile)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<List<Sample>>(System.IO.File.ReadAllText(inputFile));
+            var result = new List<Sample>();
+            try
+            {
+                result = System.Text.Json.JsonSerializer.Deserialize<List<Sample>>(System.IO.File.ReadAllText(inputFile));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading input file.\n" + e.Message);
+            }
+            return result;
         }
 
         public void CalculateParams()

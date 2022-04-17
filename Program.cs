@@ -7,13 +7,19 @@ namespace soilparams
     {
         static void Main(string[] args)
         {
+            string inputFile  = "input.json";
+            string outputFile = "output.txt";
             if (!hasArguments(args))
             {
                 Console.WriteLine("Usage: soilparams <input> <output>");
-                return;
+                Console.WriteLine("Trying to run with default values: input.json, output.txt\n");
+                // return;
             }
-            string inputFile = args[0];
-            string outputFile = args[1];
+            else
+            {
+                inputFile = args[0];
+                outputFile = args[1];
+            }
 
             var samples = new Experiment(inputFile);
             samples.CalculateParams();
