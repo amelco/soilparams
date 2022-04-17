@@ -63,6 +63,8 @@ It will generate a file called `output.txt` with the results.
 
 ### Todo
 
+- Account for repetition in MeasuredWaterContents
+- Generate descriptive statistics when more than one repetition per sample occurs
 - Generate csv output
 - Generate WRC plot
 - Generate statistical analysis of the result
