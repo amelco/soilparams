@@ -12,6 +12,8 @@ namespace core.soilparams.Models
         public Sample sample { get; set; }
         public List<double> InitialGuess { get; set; }
         public Dictionary<string, double> SoilParameters { get; set; }
+        public double StandardDeviation { get; set; }
+        public double StandardError { get; set; }
 
 
         public BaseSoilModel(string name, Sample sample, List<double> initialGuess)
@@ -28,31 +30,36 @@ namespace core.soilparams.Models
             var yValues = new DoubleVector(sample.MeasuredWaterContents.Select(x => (double)x).ToArray());
             var start   = new DoubleVector(InitialGuess.ToArray());
 
-            Func<DoubleVector, double, double> fdelegate = delegate( DoubleVector p, double x )
+            Func<DoubleVector, double, double> fdelegate = delegate( DoubleVector p, double h )
             {
                 if ( p.Length != 4 )
                 {
-                    throw new InvalidArgumentException( "Incorrect number of function parameters to ThreeParameterExponential: " + p.Length );
+                    throw new InvalidArgumentException( "Incorrect number of function parameters: " + p.Length );
                 }
-                return p[0] + (p[1] - p[0]) / Math.Pow(1 + Math.Pow(p[3]*x, p[2]), 1-1/p[2]);
+                return p[0] + (p[1] - p[0]) / Math.Pow(1 + Math.Pow(p[3]*h, p[2]), 1-1/p[2]);
             };
             
             var fitter = new OneVariableFunctionFitter<TrustRegionMinimizer>(fdelegate);
 
-            DoubleVector solution = fitter.Fit( xValues, yValues, start );
+            DoubleVector parameters = fitter.Fit( xValues, yValues, start );
             
             SoilParameters = new Dictionary<string, double>();
-            SoilParameters.Add("ThetaR", solution[0]);
-            SoilParameters.Add("alpha",  solution[1]);
-            SoilParameters.Add("ThetaS", solution[2]);
-            SoilParameters.Add ("n",     solution[3]);
+            SoilParameters.Add("ThetaR", parameters[0]);
+            SoilParameters.Add("ThetaS", parameters[1]);
+            SoilParameters.Add("alpha",  parameters[2]);
+            SoilParameters.Add ("n",     parameters[3]);
 
             CalculatePredictedWaterContents(fdelegate);
+
+            StandardDeviation = NMathFunctions.StandardDeviation(yValues);
+            StandardError = StandardDeviation / Math.Sqrt(sample.PredictedWaterContents.Count);
+            SoilParameters.Add("Standard deviation", StandardDeviation);
+            SoilParameters.Add("Standard error", StandardError);
 
             return SoilParameters;
         }
 
-        private void CalculatePredictedWaterContents(Func<DoubleVector, double, double> fdelegate)
+        public void CalculatePredictedWaterContents(Func<DoubleVector, double, double> fdelegate)
         {
             var predictedWaterContents = new List<double>();
             foreach (var pressureHead in sample.PressureHeads)
