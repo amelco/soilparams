@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace soilparams.Models
+namespace core.soilparams.Models
 {
     public class BrooksAndCorey : BaseSoilModel
     {

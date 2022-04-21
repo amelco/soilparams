@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using soilparams.Interfaces;
-using soilparams.Models;
+using core.soilparams.Interfaces;
 
-namespace soilparams.Models
+namespace core.soilparams.Models
 {
     public class Sample : ISoilModel
     {

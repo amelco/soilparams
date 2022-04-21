@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace soilparams.Interfaces
+namespace core.soilparams.Interfaces
 {
     public interface ICalculate
     {

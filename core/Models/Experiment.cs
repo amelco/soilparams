@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using soilparams.Enums;
-using soilparams.Interfaces;
+using core.soilparams.Enums;
+using core.soilparams.Interfaces;
 
-namespace soilparams.Models
+namespace core.soilparams.Models
 {
     public class Experiment : IOutput
     {

@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CenterSpace.NMath.Core;
-using soilparams.Enums;
-using soilparams.Interfaces;
+using core.soilparams.Interfaces;
 
-namespace soilparams.Models
+namespace core.soilparams.Models
 {
     public class BaseSoilModel : ICalculate
     {

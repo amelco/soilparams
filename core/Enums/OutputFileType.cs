@@ -1,4 +1,4 @@
-namespace soilparams.Enums
+namespace core.soilparams.Enums
 {
     public enum OutputFileType
     {
