@@ -1,4 +1,4 @@
-namespace soilparams.Interfaces
+namespace core.soilparams.Interfaces
 {
     public interface ISoilModel
     {
