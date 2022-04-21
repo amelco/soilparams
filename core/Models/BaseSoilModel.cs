@@ -12,8 +12,10 @@ namespace core.soilparams.Models
         public Sample sample { get; set; }
         public List<double> InitialGuess { get; set; }
         public Dictionary<string, double> SoilParameters { get; set; }
-        public double StandardDeviation { get; set; }
-        public double StandardError { get; set; }
+        public double MeasuredStandardDeviation { get; set; }
+        public double MeasuredStandardError { get; set; }
+        public double PredictedStandardDeviation { get; set; }
+        public double PredictedStandardError { get; set; }
 
 
         public BaseSoilModel(string name, Sample sample, List<double> initialGuess)
@@ -42,19 +44,27 @@ namespace core.soilparams.Models
             var fitter = new OneVariableFunctionFitter<TrustRegionMinimizer>(fdelegate);
 
             DoubleVector parameters = fitter.Fit( xValues, yValues, start );
-            
-            SoilParameters = new Dictionary<string, double>();
-            SoilParameters.Add("ThetaR", parameters[0]);
-            SoilParameters.Add("ThetaS", parameters[1]);
-            SoilParameters.Add("alpha",  parameters[2]);
-            SoilParameters.Add ("n",     parameters[3]);
+
+            SoilParameters = new Dictionary<string, double>
+            {
+                { "ThetaR", parameters[0] },
+                { "ThetaS", parameters[1] },
+                { "alpha",  parameters[2] },
+                { "n",      parameters[3] }
+            };
 
             CalculatePredictedWaterContents(fdelegate);
 
-            StandardDeviation = NMathFunctions.StandardDeviation(yValues);
-            StandardError = StandardDeviation / Math.Sqrt(sample.PredictedWaterContents.Count);
-            SoilParameters.Add("Standard deviation", StandardDeviation);
-            SoilParameters.Add("Standard error", StandardError);
+            MeasuredStandardDeviation = NMathFunctions.StandardDeviation(yValues);
+            MeasuredStandardError     = MeasuredStandardDeviation / Math.Sqrt(sample.MeasuredWaterContents.Count);
+            SoilParameters.Add("Standard deviation (measured values)", MeasuredStandardDeviation);
+            SoilParameters.Add("Standard error (measured values)",     MeasuredStandardError);
+
+            var predictedWaterContents = new DoubleVector(sample.PredictedWaterContents.Select(x => (double)x).ToArray());
+            PredictedStandardDeviation = NMathFunctions.StandardDeviation(predictedWaterContents);
+            PredictedStandardError     = PredictedStandardDeviation / Math.Sqrt(sample.PredictedWaterContents.Count);
+            SoilParameters.Add("Standard deviation (predicted values)", PredictedStandardDeviation);
+            SoilParameters.Add("Standard error (predicted values)",     PredictedStandardError);
 
             return SoilParameters;
         }
