@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CenterSpace.NMath.Core;
+using soilparams.Enums;
 using soilparams.Interfaces;
 
 namespace soilparams.Models
@@ -11,6 +12,8 @@ namespace soilparams.Models
         public string Name { get; set; }
         public Sample sample { get; set; }
         public List<double> InitialGuess { get; set; }
+        public Dictionary<string, double> SoilParameters { get; set; }
+
 
         public BaseSoilModel(string name, Sample sample, List<double> initialGuess)
         {
@@ -39,12 +42,25 @@ namespace soilparams.Models
 
             DoubleVector solution = fitter.Fit( xValues, yValues, start );
             
-            Dictionary<string, double> soilParameters = new Dictionary<string, double>();
-            soilParameters.Add("ThetaR", solution[0]);
-            soilParameters.Add("alpha",  solution[1]);
-            soilParameters.Add("ThetaS", solution[2]);
-            soilParameters.Add ("n",     solution[3]);
-            return soilParameters;
+            SoilParameters = new Dictionary<string, double>();
+            SoilParameters.Add("ThetaR", solution[0]);
+            SoilParameters.Add("alpha",  solution[1]);
+            SoilParameters.Add("ThetaS", solution[2]);
+            SoilParameters.Add ("n",     solution[3]);
+
+            CalculatePredictedWaterContents(fdelegate);
+
+            return SoilParameters;
+        }
+
+        private void CalculatePredictedWaterContents(Func<DoubleVector, double, double> fdelegate)
+        {
+            var predictedWaterContents = new List<double>();
+            foreach (var pressureHead in sample.PressureHeads)
+            {
+                predictedWaterContents.Add(fdelegate(new DoubleVector(SoilParameters.Values.ToArray()), (double)pressureHead));
+            }
+            sample.PredictedWaterContents = predictedWaterContents;
         }
     }
 }

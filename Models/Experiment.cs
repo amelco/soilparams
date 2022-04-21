@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using soilparams.Enums;
+using soilparams.Interfaces;
 
 namespace soilparams.Models
 {
-    public class Experiment
+    public class Experiment : IOutput
     {
         public List<Sample> Samples { get; set; }
 
@@ -41,8 +43,27 @@ namespace soilparams.Models
                         Console.WriteLine(param.Key + ": " + param.Value);
                     }
                     Console.WriteLine("");
+                    this.WriteToFile(sample, OutputFileType.CSV);
                 }
                 Console.WriteLine("");
+            }
+        }
+
+        public void WriteToFile(Sample sample, OutputFileType outputType)
+        {
+            if (outputType == OutputFileType.CSV)
+            {
+                string fileName = $"{sample.Title} - {sample.GetModelName()}.csv";
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                {
+                    file.WriteLine("PressureHead,MeasuredWaterContent,PredictedWaterContent,difference");
+                    for (int i = 0; i < sample.PressureHeads.Count; i++)
+                    {
+                        double difference = sample.MeasuredWaterContents[i] - sample.PredictedWaterContents[i];
+                        file.WriteLine($"{sample.PressureHeads[i]},{sample.MeasuredWaterContents[i]},{sample.PredictedWaterContents[i]},{difference}");
+                    }
+                }
+                return;   
             }
         }
     }
