@@ -54,7 +54,7 @@ namespace core.soilparams.Models
             if (outputType == OutputFileType.CSV)
             {
                 string fileName = $"{sample.Title} - {sample.GetModelName()}.csv";
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                using (System.IO.StreamWriter file = new(fileName))
                 {
                     file.WriteLine("PressureHead,MeasuredWaterContent,PredictedWaterContent,difference");
                     for (int i = 0; i < sample.PressureHeads.Count; i++)
