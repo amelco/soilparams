@@ -18,7 +18,7 @@ Tool to calculate soil hydraulic parameters through several models
             0.543, 0.474, 0.402, 0.390, 0.327, 0.309, 0.290, 0.287, 0.286, 0.280
         ],
         "Models": [
-            "VG", "BC"
+            "VG"
         ],
         "InitialGuess": [
             0.1, 0.5, 1.2, 0.5
@@ -53,7 +53,7 @@ In this file you configure the input parameters for the application. It's quite 
   - VG: van Genuchten (1980) model
   - BC: Brooks and Corey (1964) model
 - InitialGuess: A list of initial guess values for the model parameters to be estimated
-  - For VG model, parameter order is: theta_r, theta_s, n, alpha
+  - For VG model, parameter order is: theta_r, theta_s, alpha, n
 
 2. Run the command `soilparams input.json output.txt`.
 
@@ -61,10 +61,13 @@ Alternatively, you can run just the command `soilparams` and it will try to open
 
 It will generate a file called `output.txt` with the results.
 
-### Todo
+Also, it will print on the screen the output with the parameters, standard deviation and standard error.
 
-- Account for repetition in MeasuredWaterContents
-- Generate descriptive statistics when more than one repetition per sample occurs
-- Generate csv output
-- Generate WRC plot
+### To do
+
+- Account for several models (and initial guesses) per item
+- Store a more detailed output in an *easy-to-read* file
+- Generate descriptive statistics
 - Generate statistical analysis of the result
+- Generate WRC plot
+- Account for repetition in MeasuredWaterContents
