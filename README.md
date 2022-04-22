@@ -55,11 +55,10 @@ In this file you configure the input parameters for the application. It's quite 
 - InitialGuess: A list of initial guess values for the model parameters to be estimated
   - For VG model, parameter order is: theta_r, theta_s, alpha, n
 
-2. Run the command `soilparams input.json output.txt`.
+2. Run the command `soilparams input.json`.
 
-Alternatively, you can run just the command `soilparams` and it will try to open the default value for the input file (`input.json`) and print the result in the default output file (`output.txt`).
-
-It will generate a file called `output.txt` with the results.
+Alternatively, you can run just the command `soilparams` and it will try to open the default value for the input file (`input.json`).
+The statistics will be printed in the `statistics.txt` file.
 
 Also, it will print on the screen the output with the parameters, standard deviation and standard error.
 
