@@ -13,17 +13,15 @@ namespace soilparams.consoleApp
         public int Run()
         {
             string inputFile  = "input.json";
-            string outputFile = "output.txt";
             if (!hasArguments(_args))
             {
-                Console.WriteLine("Usage: soilparams <input> <output>");
-                Console.WriteLine("Trying to run with default values: input.json, output.txt\n");
+                Console.WriteLine("Usage: soilparams <input>");
+                Console.WriteLine("Trying to run with default value: input.json\n");
                 // return;
             }
             else
             {
                 inputFile  = _args[0];
-                outputFile = _args[1];
             }
     
             var samples = new Experiment(inputFile);
@@ -34,7 +32,7 @@ namespace soilparams.consoleApp
     
         private static bool hasArguments(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length != 1)
             {
                 return false;
             }

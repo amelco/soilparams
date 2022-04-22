@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using core.soilparams.Enums;
 using core.soilparams.Interfaces;
 
 namespace core.soilparams.Models
 {
-    public class Experiment : IOutput
+    public class Experiment : IOutputToFiles
     {
         public List<Sample> Samples { get; set; }
+        public string  InputFile { get; set; }
+        private string statsContent = "";
 
         public Experiment(string inputFile)
         {
-            Samples = getSampleList(inputFile);
+            InputFile  = inputFile;
+            Samples = getSampleList(InputFile);
         }
 
         private List<Sample> getSampleList(string inputFile)
@@ -54,7 +58,7 @@ namespace core.soilparams.Models
             if (outputType == OutputFileType.CSV)
             {
                 string fileName = $"{sample.Title} - {sample.GetModelName()}.csv";
-                using (System.IO.StreamWriter file = new(fileName))
+                using (StreamWriter file = new(fileName))
                 {
                     file.WriteLine("PressureHead,MeasuredWaterContent,PredictedWaterContent,difference");
                     for (int i = 0; i < sample.PressureHeads.Count; i++)
@@ -63,8 +67,27 @@ namespace core.soilparams.Models
                         file.WriteLine($"{sample.PressureHeads[i]},{sample.MeasuredWaterContents[i]},{sample.PredictedWaterContents[i]},{difference}");
                     }
                 }
-                return;   
             }
+
+            statsContent += 
+$@" -== {sample.Title} ==-
+Description: {sample.Description}
+Model:       {sample.GetModelName()}
+
+# MEASURED
+  Standard Deviation: {sample.chosenModel.MeasuredStandardDeviation}
+  Standard Error:     {sample.chosenModel.MeasuredStandardError}
+
+# PREDICTED
+  Standard Deviation: {sample.chosenModel.PredictedStandardDeviation}
+  Standard Error:     {sample.chosenModel.PredictedStandardError}
+
+# Pearson correlation coefficient: {sample.chosenModel.Correlation}
+# R-Squared:                       {sample.chosenModel.Rsquared}
+
+";
+
+        File.WriteAllText("statistics.txt", statsContent);
         }
     }
 }

@@ -3,7 +3,7 @@ using core.soilparams.Models;
 
 namespace core.soilparams.Interfaces
 {
-    public interface IOutput
+    public interface IOutputToFiles
     {
         void WriteToFile(Sample sample, OutputFileType outputType);
     }

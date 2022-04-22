@@ -16,7 +16,8 @@ namespace core.soilparams.Models
         public double MeasuredStandardError { get; set; }
         public double PredictedStandardDeviation { get; set; }
         public double PredictedStandardError { get; set; }
-
+        public double Correlation { get; set;}
+        public double Rsquared { get; private set; }
 
         public BaseSoilModel(string name, Sample sample, List<double> initialGuess)
         {
@@ -65,6 +66,9 @@ namespace core.soilparams.Models
             PredictedStandardError     = PredictedStandardDeviation / Math.Sqrt(sample.PredictedWaterContents.Count);
             SoilParameters.Add("Standard deviation (predicted values)", PredictedStandardDeviation);
             SoilParameters.Add("Standard error (predicted values)",     PredictedStandardError);
+
+            Correlation = NMathFunctions.Correlation(yValues, predictedWaterContents);
+            Rsquared = new GoodnessOfFit(fitter, xValues, yValues, parameters).RSquared;
 
             return SoilParameters;
         }
